@@ -1,4 +1,7 @@
 
+using Data.DataBase;
+using Microsoft.EntityFrameworkCore;
+
 namespace Clean_Architecture_Project
 {
     public class Program
@@ -10,6 +13,11 @@ namespace Clean_Architecture_Project
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddDbContext<SchoolDataBase>(option =>
+            {
+                option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            } 
+            ,ServiceLifetime.Scoped);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
